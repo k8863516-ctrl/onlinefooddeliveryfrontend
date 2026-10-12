@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodSwift - Fast, Fresh & Delicious Food Delivery</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #fff5f3 0%, #ffffff 100%);
+      padding: 5rem 0 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+      gap: 3rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.88rem;
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-size: 3.4rem;
+      font-weight: 800;
+      color: var(--secondary);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title span {
+      color: var(--primary);
+    }
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 520px;
+    }
+    .hero-search-box {
+      display: flex;
+      background: white;
+      padding: 0.5rem;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      max-width: 480px;
+    }
+    .hero-search-box input {
+      flex: 1;
+      border: none;
+      padding: 0.8rem 1.4rem;
+      outline: none;
+      font-size: 1rem;
+    }
+    .hero-img-box {
+      position: relative;
+    }
+    .hero-img {
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+    }
+    .floating-card {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -1.5rem;
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border: 1px solid var(--border);
+    }
+    /* Portals Section */
+    .portals-section {
+      padding: 4.5rem 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+    }
+    .portals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .portal-card {
+      padding: 2.2rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .portal-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+    .portal-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1.2rem;
+    }
+    .portal-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--secondary);
+      margin-bottom: 0.6rem;
+    }
+    .portal-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    /* Features / Steps */
+    .steps-section {
+      padding: 4.5rem 0;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+    }
+    .section-header h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--secondary);
+    }
+    .section-header p {
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .step-card {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin: 0 auto 1.2rem;
+    }
+    @media (max-width: 900px) {
+      .hero-grid, .portals-grid, .steps-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: 2.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Connectivity Status Banner -->
+  <div id="api-status-banner" class="api-banner">
+    <span class="api-status-dot online"></span>
+    <span>Connecting to Online Food Delivery Backend...</span>
+  </div>
+
+  <!-- Main Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">🍔</span> Food<span>Swift</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="restaurants.html" class="nav-link">Restaurants</a>
+        <a href="my-orders.html" class="nav-link">My Orders</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Rendered dynamically by app.js -->
+        <a href="cart.html" class="cart-btn">🛒 Cart <span class="cart-badge">0</span></a>
+        <a href="login.html" class="btn btn-outline btn-sm">Log In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">🚀 Superfast 30-Minute Delivery</div>
+        <h1 class="hero-title">Hungry? Order Food from <span>Top Local Chefs</span></h1>
+        <p class="hero-desc">Discover artisanal burgers, wood-fired pizzas, authentic curries, fresh sushi, and wholesome bowls delivered steaming hot to your doorstep.</p>
+
+        <form action="restaurants.html" method="GET" class="hero-search-box">
+          <input type="text" name="search" placeholder="Search for dishes, restaurants or cuisines...">
+          <button type="submit" class="btn btn-primary" style="border-radius: var(--radius-full);">Find Food</button>
+        </form>
+      </div>
+
+      <div class="hero-img-box">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&auto=format&fit=crop&q=80" alt="Delicious Food Feast" class="hero-img">
+        <div class="floating-card">
+          <div style="font-size: 2rem;">⚡</div>
+          <div>
+            <div style="font-weight: 800; font-size: 1.1rem; color: var(--secondary);">Average 25 Min</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Direct Kitchen Dispatch</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three Comprehensive Portals -->
+  <section class="portals-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Complete Food Delivery Ecosystem</h2>
+        <p>Three purpose-built portals engineered for customers, kitchen partners, and platform administrators.</p>
+      </div>
+
+      <div class="portals-grid">
+        <!-- Customer Portal -->
+        <div class="portal-card">
+          <div>
+            <div class="portal-icon">🛍️</div>
+            <h3 class="portal-title">Customer Portal</h3>
+            <p class="portal-desc">Explore multi-cuisine menus, customize dishes, manage dynamic carts, make instant checkouts, and follow live delivery tracking.</p>
+          </div>
+          <a href="restaurants.html" class="btn btn-primary btn-block">Order as Customer →</a>
+        </div>
+
+        <!-- Restaurant Partner Portal -->
+        <div class="portal-card">
+          <div>
+            <div class="portal-icon">🏪</div>
+            <h3 class="portal-title">Restaurant Portal</h3>
+            <p class="portal-desc">Kitchen owners manage their restaurant profile, add delicious food items, toggle real-time availability, and process incoming meal orders.</p>
+          </div>
+          <a href="restaurant-portal.html" class="btn btn-outline btn-block">Restaurant Portal →</a>
+        </div>
+
+        <!-- Admin Portal -->
+        <div class="portal-card">
+          <div>
+            <div class="portal-icon">👑</div>
+            <h3 class="portal-title">Admin Dashboard</h3>
+            <p class="portal-desc">Supervise system revenue, total orders, partner onboardings, registered customer accounts, and global order fulfillment metrics.</p>
+          </div>
+          <a href="admin.html" class="btn btn-secondary btn-block">Admin Dashboard →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="steps-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>How FoodSwift Works</h2>
+        <p>Getting your favorite comfort meal delivered is as easy as 1-2-3</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Select Restaurant</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Browse certified restaurants categorized by cuisine, ratings, and delivery proximity.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Pick Your Favorites</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Add handcrafted entrees, sides, and beverages to your unified cart with dietary filters.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Swift Delivery</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Pay securely via Card, UPI, or Cash on Delivery, and receive fresh hot meals right on time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="brand" style="color: white;"><span class="brand-icon">🍔</span> Food<span>Swift</span></div>
+        <p>Premium online food delivery system connecting food lovers with top chefs and restaurants.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="restaurants.html">Restaurants</a></li>
+          <li><a href="cart.html">Shopping Cart</a></li>
+          <li><a href="my-orders.html">Order History</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Portals</h4>
+        <ul class="footer-links">
+          <li><a href="restaurants.html">Customer App</a></li>
+          <li><a href="restaurant-portal.html">Restaurant Partner</a></li>
+          <li><a href="admin.html">Platform Admin</a></li>
+          <li><a href="login.html">Sign In</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Developer & Tech</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com/k8863516-ctrl" target="_blank">GitHub Profile</a></li>
+          <li><span>Spring Boot 3 + Java 21</span></li>
+          <li><span>Render + Vercel Cloud</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      &copy; 2026 FoodSwift Delivery. Built with Spring Boot & Modern JavaScript.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+</body>
+</html>

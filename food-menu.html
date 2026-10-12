@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Menu - FoodSwift Delivery</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/menu.css">
+</head>
+<body>
+
+  <!-- Connectivity Banner -->
+  <div id="api-status-banner" class="api-banner"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">🍔</span> Food<span>Swift</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="restaurants.html" class="nav-link">Restaurants</a>
+        <a href="my-orders.html" class="nav-link">My Orders</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-btn">🛒 Cart <span class="cart-badge">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Restaurant Hero Banner Placeholder -->
+  <section id="restaurant-hero-placeholder" class="restaurant-hero">
+    <div class="container" style="text-align: center; padding: 2rem;">
+      <p style="color: var(--text-secondary);">Loading restaurant profile...</p>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <main class="container">
+    <!-- Controls (Categories & Veg Toggle) -->
+    <div class="menu-controls">
+      <div id="menu-category-pills" class="category-pills">
+        <!-- Rendered by food-menu.js -->
+      </div>
+
+      <label class="veg-toggle-wrapper">
+        <input type="checkbox" id="veg-only-checkbox" onchange="toggleVegOnly()">
+        <span>🌱 Veg Only</span>
+      </label>
+    </div>
+
+    <!-- Foods Grid -->
+    <div id="food-menu-grid" class="food-grid">
+      <!-- Populated dynamically by food-menu.js -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-bottom">
+      &copy; 2026 FoodSwift Delivery. Online Food Delivery System.
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/food-menu.js"></script>
+</body>
+</html>

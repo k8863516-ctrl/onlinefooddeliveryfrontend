@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - FoodSwift</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+  <!-- Connectivity Banner -->
+  <div id="api-status-banner" class="api-banner"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">🍔</span> Food<span>Swift</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="restaurants.html" class="nav-link">Restaurants</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="register.html" class="btn btn-outline btn-sm">Create Account</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Main Content -->
+  <main class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">🔐</div>
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Sign in to order food or manage your portal</p>
+      </div>
+
+      <div class="auth-body">
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="name@example.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Enter your password" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+            Sign In
+          </button>
+        </form>
+
+        <!-- Quick Demo Accounts -->
+        <div class="quick-login-box">
+          <div class="quick-login-title">⚡ 1-Click Demo Logins</div>
+          <div class="quick-login-btns">
+            <button type="button" class="quick-login-btn" onclick="quickFillLogin('customer')">👤 Customer</button>
+            <button type="button" class="quick-login-btn" onclick="quickFillLogin('restaurant')">🏪 Restaurant</button>
+            <button type="button" class="quick-login-btn" onclick="quickFillLogin('admin')">👑 Admin</button>
+          </div>
+        </div>
+
+        <div class="auth-footer">
+          Don't have an account? <a href="register.html">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

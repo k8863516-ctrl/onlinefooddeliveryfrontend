@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Partner Portal - FoodSwift</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- Connectivity Banner -->
+  <div id="api-status-banner" class="api-banner"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">🍔</span> Food<span>Swift</span>
+      </a>
+      <div style="font-weight: 700; color: var(--secondary);">🏪 Restaurant Partner Portal</div>
+      <div class="nav-actions">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <h3 id="partner-rest-name" style="font-size: 1.15rem; font-weight: 800;">Burger Craft</h3>
+        <span class="admin-portal-badge" style="background: var(--primary);">Restaurant Partner</span>
+      </div>
+
+      <nav class="admin-nav">
+        <button class="admin-nav-item active" onclick="switchPartnerTab('menu')">
+          <span class="admin-nav-icon">🍔</span> Menu Management
+        </button>
+        <button class="admin-nav-item" onclick="switchPartnerTab('orders')">
+          <span class="admin-nav-icon">🍳</span> Kitchen Live Orders
+        </button>
+      </nav>
+
+      <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+        <a href="index.html" class="btn btn-outline btn-block btn-sm">← Storefront</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      <!-- Section: Menu Management -->
+      <section id="partner-section-menu">
+        <div class="admin-page-header">
+          <h2 class="admin-page-title">Manage Food Menu</h2>
+          <button onclick="openAddFoodModal()" class="btn btn-primary btn-sm">+ Add New Dish</button>
+        </div>
+
+        <div class="table-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="partner-menu-tbody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section: Kitchen Live Orders -->
+      <section id="partner-section-orders" style="display: none;">
+        <div class="admin-page-header">
+          <h2 class="admin-page-title">Live Kitchen Orders</h2>
+        </div>
+
+        <div class="table-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Address</th>
+                <th>Total</th>
+                <th>Current Status</th>
+                <th>Quick Advance Status</th>
+              </tr>
+            </thead>
+            <tbody id="partner-orders-tbody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Add Food Modal -->
+  <div id="add-food-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add Dish to Menu</h3>
+        <button class="modal-close-btn" onclick="closeAddFoodModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="saveNewFoodItem(event)">
+          <div class="form-group">
+            <label class="form-label">Dish Name *</label>
+            <input type="text" id="new-food-name" class="form-control" required placeholder="Signature Burger">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea id="new-food-desc" class="form-control" rows="2" placeholder="Freshly ground beef, melted cheese..."></textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Price ($) *</label>
+              <input type="number" step="0.01" id="new-food-price" class="form-control" required value="12.99">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <input type="text" id="new-food-category" class="form-control" value="Burgers">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Image URL</label>
+            <input type="url" id="new-food-img" class="form-control" placeholder="https://images.unsplash.com/photo-...">
+          </div>
+          <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="checkbox" id="new-food-veg">
+              <span>Vegetarian Dish</span>
+            </label>
+          </div>
+          <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+            <button type="button" onclick="closeAddFoodModal()" class="btn btn-secondary btn-sm">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-sm">Save Dish</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    let partnerFoods = [
+      { id: 1, name: "The Truffle Beast Burger", category: "Burgers", price: 14.99, isVeg: false, isAvailable: true, imageUrl: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
+      { id: 2, name: "Smoky Bacon & BBQ Burger", category: "Burgers", price: 15.49, isVeg: false, isAvailable: true, imageUrl: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400" },
+      { id: 3, name: "Crispy Avocado Veggie Burger", category: "Burgers", price: 12.99, isVeg: true, isAvailable: true, imageUrl: "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=400" },
+      { id: 4, name: "Truffle Parmesan Fries", category: "Sides", price: 6.99, isVeg: true, isAvailable: true, imageUrl: "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=400" }
+    ];
+
+    let partnerOrders = [
+      { id: 1, orderNumber: "ORD-984210", address: "42 Wallaby Way, Suite 10", totalAmount: 23.97, status: "DELIVERED" },
+      { id: 2, orderNumber: "ORD-719284", address: "18 Pine Crest Ave", totalAmount: 32.48, status: "PREPARING" }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPartnerData();
+    });
+
+    async function loadPartnerData() {
+      try {
+        const foods = await App.apiFetch('/api/foods/restaurant/1');
+        if (foods && foods.length > 0) partnerFoods = foods;
+      } catch (e) {}
+
+      renderPartnerMenu();
+      renderPartnerOrders();
+    }
+
+    function switchPartnerTab(tab) {
+      document.getElementById('partner-section-menu').style.display = tab === 'menu' ? 'block' : 'none';
+      document.getElementById('partner-section-orders').style.display = tab === 'orders' ? 'block' : 'none';
+    }
+
+    function renderPartnerMenu() {
+      const tbody = document.getElementById('partner-menu-tbody');
+      if (!tbody) return;
+
+      tbody.innerHTML = partnerFoods.map(f => `
+        <tr>
+          <td>
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <img src="${f.imageUrl || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'}" style="width:40px; height:40px; border-radius:6px; object-fit:cover;">
+              <strong>${f.name}</strong>
+            </div>
+          </td>
+          <td><span class="badge-tag">${f.category || 'Entree'}</span></td>
+          <td><strong>$${Number(f.price).toFixed(2)}</strong></td>
+          <td>${f.isVeg ? '🌱 Veg' : '🍗 Non-Veg'}</td>
+          <td>
+            <span class="status-pill ${f.isAvailable ? 'status-delivered' : 'status-cancelled'}">
+              ${f.isAvailable ? 'Available' : 'Sold Out'}
+            </span>
+          </td>
+          <td>
+            <button onclick="toggleFoodItemAvailability(${f.id})" class="btn btn-sm btn-outline">
+              ${f.isAvailable ? 'Mark Sold Out' : 'Mark Available'}
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderPartnerOrders() {
+      const tbody = document.getElementById('partner-orders-tbody');
+      if (!tbody) return;
+
+      tbody.innerHTML = partnerOrders.map(o => {
+        const nextMap = {
+          CONFIRMED: 'PREPARING',
+          PREPARING: 'OUT_FOR_DELIVERY',
+          OUT_FOR_DELIVERY: 'DELIVERED'
+        };
+        const next = nextMap[o.status];
+
+        return `
+          <tr>
+            <td><strong>#${o.orderNumber}</strong></td>
+            <td>${o.address}</td>
+            <td><strong>$${Number(o.totalAmount).toFixed(2)}</strong></td>
+            <td><span class="status-pill status-${o.status.toLowerCase()}">${o.status}</span></td>
+            <td>
+              ${next ? `
+                <button onclick="advanceOrderStatus(${o.id}, '${next}')" class="btn btn-sm btn-primary">
+                  Advance to ${next} →
+                </button>
+              ` : '<span style="color:var(--accent); font-weight:700;">Completed ✓</span>'}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function toggleFoodItemAvailability(id) {
+      const item = partnerFoods.find(f => f.id === id);
+      if (!item) return;
+
+      try {
+        await App.apiFetch(`/api/foods/${id}/toggle-availability`, { method: 'PATCH' });
+      } catch (e) {}
+
+      item.isAvailable = !item.isAvailable;
+      App.showToast(`Updated "${item.name}" availability`, 'info');
+      renderPartnerMenu();
+    }
+
+    async function advanceOrderStatus(id, newStatus) {
+      try {
+        await App.apiFetch(`/api/orders/${id}/status`, {
+          method: 'PUT',
+          body: JSON.stringify({ status: newStatus })
+        });
+      } catch (e) {}
+
+      const ord = partnerOrders.find(o => o.id === id);
+      if (ord) ord.status = newStatus;
+      App.showToast(`Order updated to ${newStatus}`, 'success');
+      renderPartnerOrders();
+    }
+
+    function openAddFoodModal() {
+      document.getElementById('add-food-modal').classList.add('active');
+    }
+
+    function closeAddFoodModal() {
+      document.getElementById('add-food-modal').classList.remove('active');
+    }
+
+    async function saveNewFoodItem(e) {
+      e.preventDefault();
+      const name = document.getElementById('new-food-name').value;
+      const desc = document.getElementById('new-food-desc').value;
+      const price = parseFloat(document.getElementById('new-food-price').value);
+      const cat = document.getElementById('new-food-category').value;
+      const img = document.getElementById('new-food-img').value;
+      const veg = document.getElementById('new-food-veg').checked;
+
+      const newDish = {
+        id: partnerFoods.length + 1,
+        name,
+        description: desc,
+        price,
+        category: cat,
+        imageUrl: img || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400',
+        isVeg: veg,
+        isAvailable: true
+      };
+
+      try {
+        await App.apiFetch('/api/foods/restaurant/1', {
+          method: 'POST',
+          body: JSON.stringify(newDish)
+        });
+      } catch (e) {}
+
+      partnerFoods.push(newDish);
+      App.showToast('New dish added to menu!', 'success');
+      closeAddFoodModal();
+      renderPartnerMenu();
+    }
+  </script>
+</body>
+</html>

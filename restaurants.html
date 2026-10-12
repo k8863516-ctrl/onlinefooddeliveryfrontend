@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurants - FoodSwift Delivery</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Connectivity Banner -->
+  <div id="api-status-banner" class="api-banner"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">🍔</span> Food<span>Swift</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="restaurants.html" class="nav-link active">Restaurants</a>
+        <a href="my-orders.html" class="nav-link">My Orders</a>
+      </nav>
+      <div class="nav-actions">
+        <!-- Rendered by app.js -->
+        <a href="cart.html" class="cart-btn">🛒 Cart <span class="cart-badge">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header & Filter Section -->
+  <section style="background: white; border-bottom: 1px solid var(--border); padding: 2.5rem 0 2rem;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.8rem;">
+        <div>
+          <h1 style="font-size: 2.2rem; font-weight: 800; color: var(--secondary);">Explore Restaurants</h1>
+          <p style="color: var(--text-secondary); margin-top: 0.25rem;">Handpicked dining spots prepared to deliver directly to you</p>
+        </div>
+
+        <div style="min-width: 300px; max-width: 420px; width: 100%;">
+          <input type="text" id="search-input" class="form-control" placeholder="🔍 Search restaurants or dishes..." style="border-radius: var(--radius-full);">
+        </div>
+      </div>
+
+      <!-- Cuisine Category Pills -->
+      <div class="category-pills" style="overflow-x: auto; padding-bottom: 0.5rem;">
+        <button class="category-pill active" data-cuisine="all">🍽️ All</button>
+        <button class="category-pill" data-cuisine="burgers">🍔 Burgers</button>
+        <button class="category-pill" data-cuisine="italian">🍕 Italian</button>
+        <button class="category-pill" data-cuisine="indian">🍛 Indian</button>
+        <button class="category-pill" data-cuisine="japanese">🍣 Japanese</button>
+        <button class="category-pill" data-cuisine="mexican">🌮 Mexican</button>
+        <button class="category-pill" data-cuisine="healthy">🥗 Healthy</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Restaurant Grid -->
+  <main class="container" style="padding-top: 2.5rem; padding-bottom: 4rem;">
+    <div id="restaurant-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem;">
+      <!-- Populated dynamically by restaurants.js -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-bottom">
+      &copy; 2026 FoodSwift Delivery. Online Food Delivery System.
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/restaurants.js"></script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - FoodSwift</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- Connectivity Banner -->
+  <div id="api-status-banner" class="api-banner"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">🍔</span> Food<span>Swift</span>
+      </a>
+      <div style="font-weight: 700; color: var(--secondary);">👑 Platform Administration Portal</div>
+      <div class="nav-actions">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <h3 style="font-size: 1.15rem; font-weight: 800;">Admin Control</h3>
+        <span class="admin-portal-badge">Root Admin</span>
+      </div>
+
+      <nav class="admin-nav">
+        <button class="admin-nav-item active" data-tab="overview">
+          <span class="admin-nav-icon">📊</span> Overview Stats
+        </button>
+        <button class="admin-nav-item" data-tab="restaurants">
+          <span class="admin-nav-icon">🏪</span> Restaurants
+        </button>
+        <button class="admin-nav-item" data-tab="orders">
+          <span class="admin-nav-icon">📦</span> Orders Management
+        </button>
+        <button class="admin-nav-item" data-tab="users">
+          <span class="admin-nav-icon">👥</span> User Accounts
+        </button>
+      </nav>
+
+      <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+        <a href="index.html" class="btn btn-outline btn-block btn-sm">← Back to Storefront</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+
+      <!-- Section: Overview -->
+      <section id="section-overview" class="admin-section">
+        <div class="admin-page-header">
+          <h2 class="admin-page-title">Executive Dashboard</h2>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <h5>Total Orders</h5>
+              <div id="stat-total-orders" class="stat-number">--</div>
+            </div>
+            <div class="stat-icon-box stat-icon-orders">📦</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <h5>Total Revenue</h5>
+              <div id="stat-total-revenue" class="stat-number">$--</div>
+            </div>
+            <div class="stat-icon-box stat-icon-revenue">💰</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <h5>Active Restaurants</h5>
+              <div id="stat-total-restaurants" class="stat-number">--</div>
+            </div>
+            <div class="stat-icon-box stat-icon-rest">🏪</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <h5>Registered Users</h5>
+              <div id="stat-total-users" class="stat-number">--</div>
+            </div>
+            <div class="stat-icon-box stat-icon-users">👥</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Restaurants -->
+      <section id="section-restaurants" class="admin-section" style="display: none;">
+        <div class="admin-page-header">
+          <h2 class="admin-page-title">Partner Restaurants</h2>
+          <button onclick="openAddRestaurantModal()" class="btn btn-primary btn-sm">+ Add Restaurant</button>
+        </div>
+
+        <div class="table-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Restaurant Name</th>
+                <th>Cuisine</th>
+                <th>Rating</th>
+                <th>Delivery Fee</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-restaurants-tbody">
+              <!-- Populated by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section: Orders -->
+      <section id="section-orders" class="admin-section" style="display: none;">
+        <div class="admin-page-header">
+          <h2 class="admin-page-title">System Orders</h2>
+        </div>
+
+        <div class="table-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Customer</th>
+                <th>Restaurant</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-tbody">
+              <!-- Populated by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section: Users -->
+      <section id="section-users" class="admin-section" style="display: none;">
+        <div class="admin-page-header">
+          <h2 class="admin-page-title">Registered Users</h2>
+        </div>
+
+        <div class="table-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Phone</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-tbody">
+              <!-- Populated by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Order Status Modal -->
+  <div id="order-status-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Update Order Fulfillment Status</h3>
+        <button class="modal-close-btn" onclick="closeOrderStatusModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="modal-status-select">Select New Status</label>
+          <select id="modal-status-select" class="form-control">
+            <option value="CONFIRMED">CONFIRMED (Order acknowledged)</option>
+            <option value="PREPARING">PREPARING (In kitchen)</option>
+            <option value="OUT_FOR_DELIVERY">OUT_FOR_DELIVERY (Courier en route)</option>
+            <option value="DELIVERED">DELIVERED (Customer received)</option>
+            <option value="CANCELLED">CANCELLED (Order refunded/void)</option>
+          </select>
+        </div>
+        <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+          <button onclick="closeOrderStatusModal()" class="btn btn-secondary btn-sm">Cancel</button>
+          <button onclick="saveOrderStatusUpdate()" class="btn btn-primary btn-sm">Save Status</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Restaurant Modal -->
+  <div id="add-restaurant-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Onboard New Restaurant</h3>
+        <button class="modal-close-btn" onclick="closeAddRestaurantModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="saveNewRestaurant(event)">
+          <div class="form-group">
+            <label class="form-label">Restaurant Name *</label>
+            <input type="text" id="new-rest-name" class="form-control" required placeholder="Gourmet Delights">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cuisine Type *</label>
+            <input type="text" id="new-rest-cuisine" class="form-control" required placeholder="Italian, Burgers, Japanese...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Street Address *</label>
+            <input type="text" id="new-rest-address" class="form-control" required placeholder="123 Food Street">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Delivery Fee ($) *</label>
+            <input type="number" step="0.01" id="new-rest-fee" class="form-control" required value="2.99">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cover Image URL</label>
+            <input type="url" id="new-rest-img" class="form-control" placeholder="https://images.unsplash.com/photo-...">
+          </div>
+          <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+            <button type="button" onclick="closeAddRestaurantModal()" class="btn btn-secondary btn-sm">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-sm">Create Restaurant</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
